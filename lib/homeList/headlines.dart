@@ -79,8 +79,11 @@ buildTopHeadlines(topHeadlines,String heading){
                         )
                     ],),
                   );
-                }),
+                }
+                
+                ),
             );
+       
         },
       ),
     ]

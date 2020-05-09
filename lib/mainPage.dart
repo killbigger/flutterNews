@@ -7,7 +7,7 @@ import 'package:newsilise/inshort.dart';
 class MainPage extends StatefulWidget {
   final String country;
   MainPage({
-    this.country='in'
+    this.country
   });
 
   @override
@@ -39,7 +39,7 @@ int currentPage=0;
           });
         },
         children: <Widget>[
-          Home(selectedCountry:'in'),
+          Home(selectedCountry:widget.country),
           Explore(),
           InShort(),
       ],),
