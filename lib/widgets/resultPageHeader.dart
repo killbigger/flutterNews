@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:newsilise/mainPage.dart';
+import 'package:newsilise/pages/sortPage.dart';
 
  
 class ResultPageHeader implements SliverPersistentHeaderDelegate {
-
+final String category;
+ final String q;
+final bool isEverything;
+ final String source;
+ final String sortBy;
   ResultPageHeader({
     this.minExtent,
     @required this.maxExtent,
+    this.sortBy,
+    this.category,
+   this.q,
+  this.isEverything,
+  this.source,
   });
   final double minExtent;
 final double maxExtent;
@@ -18,6 +29,22 @@ TextEditingController searchController = TextEditingController();
       child: Stack(
           fit: StackFit.expand,
           children:<Widget>[
+            Positioned(
+              top: 11,
+              left: 8,
+              child: IconButton(
+                icon: Icon(Icons.arrow_back),
+                color: Colors.white,
+                iconSize: 40,
+                onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(
+                     builder: (context)=>MainPage(country: 'in',
+                     currentPage: 1,
+                     )
+                     ));
+                },
+              ),
+            ),
             Center(child: Padding(
               padding: const EdgeInsets.only(top:16.0),
               child: Text('NEWS',
@@ -33,11 +60,24 @@ TextEditingController searchController = TextEditingController();
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[ 
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                               color:Color.fromRGBO(30, 215, 96, 1),
-                            ),
+                          GestureDetector(
+                            onTap: (){
+                             
+                                Navigator.push(context, MaterialPageRoute(
+                              builder: (context)=>SortPage(
+                                sortBy:sortBy,
+                                category:category,
+                                q:q,
+                                isEverything:isEverything,
+                                source:source
+                              )
+                              ));
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                 color:Color.fromRGBO(30, 215, 96, 1),
+                              ),
                      width: 200,
                      height:60,
                      child: Center(child: Text('sort',
@@ -49,6 +89,7 @@ TextEditingController searchController = TextEditingController();
                      ),),
                      
                     ),
+                          ),
                    
                   
           ],

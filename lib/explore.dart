@@ -3,13 +3,13 @@ import 'package:newsilise/pages/resultPage.dart';
 import 'package:newsilise/widgets/exploreHeader.dart';
 
 class Explore extends StatefulWidget {
-  Explore({Key key}) : super(key: key);
 
   @override
   _ExploreState createState() => _ExploreState();
 }
 
 class _ExploreState extends State<Explore> {
+  String q='';
   List sourceTiles = [
 'BBC',
 'The Hindu',
@@ -23,12 +23,20 @@ class _ExploreState extends State<Explore> {
     'corona',
     'football',
     'Sebin Davis',
-    'TV Shows',
-     'Music',
+    'movies',
+     'music',
     'business',
     'general',
     'health',
-    'science' 
+    'science',
+  ];
+  List sourceTilesKey =[
+    'bbc-news',
+    'the-hindu',
+    'the-times-of-india',
+    'bbc-sport',
+    'espn',
+    'the-verge'
   ];
   List<Color> colorList = [
   Color.fromRGBO(156, 240, 225, 1),
@@ -89,7 +97,7 @@ class _ExploreState extends State<Explore> {
               child: GestureDetector(
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context){
-                    return ResultPage();
+                    return ResultPage(source:sourceTilesKey[index],isEverything: true,);
                   }));
                 },
                 child: Container(
@@ -136,16 +144,27 @@ class _ExploreState extends State<Explore> {
               padding: const EdgeInsets.symmetric(horizontal:8.0,vertical:10),
               child: GestureDetector(
                 onTap: (){
-
+                  Navigator.push(context, MaterialPageRoute(builder: (context){
+                    if(index==0){
+                      return ResultPage(isEverything: false,q:allTiles[0]);
+                    } else if(index>=5){
+                      return ResultPage(isEverything: false,category:allTiles[index],);
+                    } else if(index==1||index==2){
+                        return ResultPage(isEverything: true,q:allTiles[index]);
+                    } else {
+                      return ResultPage(isEverything: true,q:allTiles[index],source:'mtv-news');
+                    }
+                  }));
                 },
                 child: Container(
                   padding: EdgeInsets.only(top:20,left:8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: colorList[index+sourceTiles.length],
-                  ),
-                   
-                  child:Text(allTiles[index],
+                  ), 
+                  child:Text(
+                    allTiles[index],
+
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

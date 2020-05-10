@@ -27,7 +27,7 @@ class TopHeadlines {
     }
  }   else if(category!=''){
 
-    newsApi='https://newsapi.org/v2/top-headlines?category=$category&apiKey=a5831a38d9ce4a1589b276ef92fce668';
+    newsApi='https://newsapi.org/v2/top-headlines?category=$category&country=us&apiKey=a5831a38d9ce4a1589b276ef92fce668';
 
       } else if(sources!=''){
      newsApi='https://newsapi.org/v2/top-headlines?sources=$sources&apiKey=a5831a38d9ce4a1589b276ef92fce668';

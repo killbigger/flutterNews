@@ -6,8 +6,10 @@ import 'package:newsilise/inshort.dart';
 
 class MainPage extends StatefulWidget {
   final String country;
+  final int currentPage;
   MainPage({
-    this.country
+    this.country,
+    this.currentPage=0
   });
 
   @override
@@ -16,12 +18,13 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage>  {
 PageController pageController;
-int currentPage=0;
+int currentPage;
   @override
   void initState() {
     
     super.initState();
-    pageController = PageController(initialPage: 0);
+    currentPage=widget.currentPage;
+    pageController = PageController(initialPage: currentPage);
   }
   @override
   void dispose() {

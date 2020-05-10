@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:newsilise/pages/resultPage.dart';
 
  
 class ExplorePageHeader implements SliverPersistentHeaderDelegate {
@@ -59,7 +60,9 @@ TextEditingController searchController = TextEditingController();
                         color: Colors.black,)
                       ),
                 onFieldSubmitted:(query){
-                      print(query);
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return ResultPage(isEverything: true,q:query);
+                      }));
                 }
                       ),
                     ),
