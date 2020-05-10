@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:newsilise/httpEndpoints.dart/everything.dart';
 import 'package:newsilise/httpEndpoints.dart/topHeadlines.dart';
 import 'package:newsilise/models/news_headlinesandeverything.dart';
+import 'package:newsilise/pages/contentPage.dart';
 import 'package:newsilise/widgets/progress.dart';
 import 'package:newsilise/widgets/resultPageHeader.dart';
 
@@ -39,18 +40,19 @@ class _ResultPageState extends State<ResultPage> {
       } 
     } else {
       if(widget.q!=''&&widget.source!=''){
-        Search qsourceSearch = Search(q: widget.q,sources: widget.source);
+        Search qsourceSearch = Search(q: widget.q,sources: widget.source,sortBy: widget.sortBy);
         return qsourceSearch.getNews();
       } else if(widget.q!='') {
-         Search qSearch = Search(q: widget.q);
+         Search qSearch = Search(q: widget.q,sortBy: widget.sortBy);
          return qSearch.getNews();
       } else if(widget.source!=''){
-        Search sourceSearch = Search(sources: widget.source);
+        Search sourceSearch = Search(sources: widget.source,sortBy: widget.sortBy);
         return sourceSearch.getNews();
       }
     }      
     }
     return Scaffold(
+      
       body: 
       FutureBuilder(
         future: futureCaller(),
@@ -59,37 +61,59 @@ class _ResultPageState extends State<ResultPage> {
             return circularProgress();
           }
           List<NewsAll> news = snapshot.data;
-          return CustomScrollView(
+          return Container(
+          decoration:BoxDecoration(
+          gradient:LinearGradient(
+            begin:Alignment.topLeft,
+            end:Alignment(0.3,0.3),
+            colors: [
+              Colors.blue[200],
+              Colors.black
+            ]
+          ) ), 
+            child: CustomScrollView(
 
         slivers: <Widget>[
-          
-          SliverPersistentHeader(
+            
+            SliverPersistentHeader(
         pinned: true,
         floating: false,
         delegate:ResultPageHeader(
-           minExtent:82,
-           maxExtent:360,
-          sortBy:widget.sortBy,
-          category:widget.category,
-          q:widget.q,
-          isEverything:widget.isEverything,
-          source:widget.source
+             minExtent:82,
+             maxExtent:360,
+            sortBy:widget.sortBy,
+            category:widget.category,
+            q:widget.q,
+            isEverything:widget.isEverything,
+            source:widget.source
          
         ) ,
         ),
         SliverList(
-          delegate:SliverChildBuilderDelegate((context,index){
-            return ListTile(
-              leading: CircleAvatar(backgroundImage:NetworkImage(news[index].urlToImage),
-              radius: 23,
-              ),
-              title: Text(news[index].title),
-              );
-          },
-          childCount: news.length)
-          )
+            delegate:SliverChildBuilderDelegate((context,index){
+              return 
+                ListTile(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                    return 
+                   ContentPage(index: index,
+                    news:news,
+                    );
+                    
+                  }));
+                    
+                  },
+                leading: CircleAvatar(backgroundImage:NetworkImage(news[index].urlToImage),
+                radius: 23,
+                ),
+                title: Text(news[index].title),
+                );
+            },
+            childCount: news.length)
+            )
         ],
-      );
+      ),
+          );
         },
       ),
       

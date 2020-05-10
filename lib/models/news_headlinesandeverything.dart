@@ -7,6 +7,7 @@ class NewsAll {
   String urlToImage;
   String publishedAt;
   String content;
+  String api;
   
   NewsAll({
 this.source,
@@ -29,6 +30,7 @@ this.source,
   urlToImage:json['urlToImage'],
   publishedAt:json['publishedAt'],
   content:json['content'],
+  
     );
   }
 

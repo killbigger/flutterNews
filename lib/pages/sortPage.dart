@@ -25,7 +25,7 @@ String sortBy;
 void initState() { 
   super.initState();
   setState(() {
-    sortBy=widget.sortBy;
+    this.sortBy=widget.sortBy;
   });
 }
 buildButton(String buttonText,String key){
@@ -34,7 +34,8 @@ buildButton(String buttonText,String key){
                  print('tapped');
                  setState(() {
                    sortBy=key;
-                   
+                   print(sortBy);
+                   print(key);
                  });
                },
     child: Padding(
@@ -85,7 +86,8 @@ buildButton(String buttonText,String key){
                
                     Navigator.push(context, MaterialPageRoute(builder: (context){
                     return 
-                    ResultPage(source:widget.source,
+                    ResultPage(
+                      source:widget.source,
                     isEverything: widget.isEverything,
                     sortBy:sortBy,
                     category:widget.category,

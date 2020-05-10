@@ -20,15 +20,15 @@ TextEditingController searchController = TextEditingController();
           fit: StackFit.expand,
           children:<Widget>[
            Container(
-              decoration:BoxDecoration(
-          gradient:LinearGradient(
-            begin:Alignment.topLeft,
-            end:Alignment.bottomRight,
-            colors: [
-              Colors.grey[200],
-              Colors.black
-            ]
-          ) ),
+          //     decoration:BoxDecoration(
+          // gradient:LinearGradient(
+          //   begin:Alignment.topLeft,
+          //   end:Alignment.bottomRight,
+          //   colors: [
+          //     Colors.grey[200],
+          //     Colors.black
+          //   ]
+          // ) ),
             ),
             Center(child: Padding(
               padding: const EdgeInsets.only(top:16.0),

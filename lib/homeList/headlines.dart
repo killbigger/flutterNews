@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsilise/models/news_headlinesandeverything.dart';
+import 'package:newsilise/pages/contentPage.dart';
+import 'package:newsilise/widgets/progress.dart';
 buildTopHeadlines(topHeadlines,String heading){
     return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -10,6 +12,7 @@ buildTopHeadlines(topHeadlines,String heading){
       letterSpacing: 0.7,
       ),
       ),
+      
       FutureBuilder(
         future:topHeadlines.getNews(), 
         builder: (BuildContext context, AsyncSnapshot<List<NewsAll>> snapshot) {
@@ -20,27 +23,11 @@ buildTopHeadlines(topHeadlines,String heading){
               height:250,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 20,
+                itemCount: 12,
                 itemBuilder: (BuildContext context,int index){
                     return Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Column(children: <Widget>[
-                        Container(
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
-                          color: Colors.grey,),
-                          height: 150,
-                          width:150,
-                          
-                        ),
-                        SizedBox(height:4,),
-                         Container(
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
-                          color: Colors.grey,),
-                          height: 24,
-                          width:145,
-                          
-                        ),
-                      ],),
+                      padding: EdgeInsets.symmetric(vertical:125),
+                      child:circularProgress()
                     );
                     }),
             );
@@ -51,33 +38,49 @@ buildTopHeadlines(topHeadlines,String heading){
               height: 250,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: news.length,
+                itemCount: 12,
                 itemBuilder: (BuildContext context,int index){
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                        height: 150,
-                        width: 150,
-                        child:
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(news[index].urlToImage,
-                        fit: BoxFit.cover,
-                        ),
-                      ),
-                       
-                        ),
-                        Container(
+                    child: GestureDetector(
+                      onTap: (){
+                         Navigator.push(context, MaterialPageRoute(
+                     builder: (context)=>
+                     ContentPage(
+                     news:news,
+                     
+                     index: index,
+                     )
+                     ));
+                      },
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                          height: 150,
                           width: 150,
-                          child: Text(news[index].title,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 11
-                          ),),
-                        )
-                    ],),
+                          child:
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child:Container()
+                          // CachedNetworkImage(
+                          //          imageUrl: news[index].urlToImage,
+                          //         placeholder: (context, url) =>circularProgress(),
+                          //         errorWidget: (context, url, error) => Icon(Icons.error),
+                          //     ),
+                         
+                        ),
+                         
+                          ),
+                          Container(
+                            width: 150,
+                            child: Text(news[index].title,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 11
+                            ),),
+                          )
+                      ],),
+                    ),
                   );
                 }
                 

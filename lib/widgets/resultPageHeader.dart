@@ -62,8 +62,8 @@ TextEditingController searchController = TextEditingController();
               children: <Widget>[ 
                           GestureDetector(
                             onTap: (){
-                             
-                                Navigator.push(context, MaterialPageRoute(
+                             if(isEverything){
+                               Navigator.push(context, MaterialPageRoute(
                               builder: (context)=>SortPage(
                                 sortBy:sortBy,
                                 category:category,
@@ -72,6 +72,8 @@ TextEditingController searchController = TextEditingController();
                                 source:source
                               )
                               ));
+                             }
+                                
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -80,9 +82,9 @@ TextEditingController searchController = TextEditingController();
                               ),
                      width: 200,
                      height:60,
-                     child: Center(child: Text('sort',
+                     child: Center(child: Text(isEverything?'sort':'Top Headlines',
                      style: TextStyle(
-                        fontSize: 28,
+                        fontSize: 22,
                         fontWeight: FontWeight.w600,
                         letterSpacing: 0.6
                      ),
