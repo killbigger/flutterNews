@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newsilise/mainPage.dart';
+
 
 class SelectCountry extends StatefulWidget {
  final String selectedCountry;
@@ -78,9 +78,7 @@ buildButton(String buttonText,String key){
                fontSize: 25,
                color: Color.fromRGBO(213,126,81, 1),
              ),), onPressed: () {
-                   Navigator.push(context, MaterialPageRoute(
-                     builder: (context)=>MainPage(country: country,)
-                     ));
+                   Navigator.pop(context,country);
              },
            )
         

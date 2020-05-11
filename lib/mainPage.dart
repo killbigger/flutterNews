@@ -42,9 +42,9 @@ int currentPage;
           });
         },
         children: <Widget>[
-          Home(selectedCountry:widget.country),
+          Home(),
           Explore(),
-          InShort(),
+          Inshort(),
       ],),
       bottomNavigationBar: CupertinoTabBar(
         backgroundColor: Color.fromRGBO(34, 35, 39, 1),

@@ -5,25 +5,28 @@ import 'package:newsilise/httpEndpoints.dart/topHeadlines.dart';
 import 'package:newsilise/pages/selectCountry.dart';
 
 class Home extends StatefulWidget { 
- final String selectedCountry ;
-  Home({
-    this.selectedCountry,
-  });
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
+  String selectedCountry;
  TopHeadlines topHeadlines;
  TopHeadlines sportHeadlines;
  TopHeadlines entertainmentHeadlines;
  bool get wantKeepAlive => true;
+ @override
+  void initState() {
+    
+    super.initState();
+    selectedCountry='in';
+  }
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    topHeadlines=TopHeadlines(country:widget.selectedCountry);
-    sportHeadlines=TopHeadlines(country:widget.selectedCountry,category:'sports');
-    entertainmentHeadlines=TopHeadlines(country:widget.selectedCountry,category:'entertainment');
+    topHeadlines=TopHeadlines(country:selectedCountry);
+    sportHeadlines=TopHeadlines(country:selectedCountry,category:'sports');
+    entertainmentHeadlines=TopHeadlines(country:selectedCountry,category:'entertainment');
     return Scaffold(
       body: Container(
          decoration:BoxDecoration(
@@ -53,9 +56,13 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                             size: 25,
                             color: Colors.white,
                             ),
-                            onPressed: ()=>
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectCountry(selectedCountry:widget.selectedCountry)))
-                         ),
+                            onPressed: ()async{
+                            
+                             final result= await Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectCountry(selectedCountry:selectedCountry)));
+                             setState(() {
+                               selectedCountry=result;
+                             });
+                             }),
                   ),
                   SizedBox(height: 18,),
                     buildTopHeadlines(topHeadlines,'Top Headlines'),

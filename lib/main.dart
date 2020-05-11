@@ -30,18 +30,20 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
- @override
- void initState() { 
-   super.initState();
-   Timer(
+  @override
+  void initState() {
+   
+    super.initState();
+     Timer(
      Duration(seconds: 3),(){
        Navigator.push(context, MaterialPageRoute(builder: (context)=>MainPage(country: 'in',)));
-     }
 
-   );
- }
+     }
+     );
+  }
   @override
   Widget build(BuildContext context) {
+   
  return Scaffold(
       body:Container(
         height: MediaQuery.of(context).size.height,

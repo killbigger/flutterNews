@@ -103,7 +103,10 @@ class _ResultPageState extends State<ResultPage> {
                   }));
                     
                   },
-                leading: CircleAvatar(backgroundImage:NetworkImage(news[index].urlToImage),
+                leading: CircleAvatar(backgroundImage:news[index].urlToImage==null?
+                           AssetImage('assets/images/nullimage.jpg'):NetworkImage(news[index].urlToImage),
+                            
+                          
                 radius: 23,
                 ),
                 title: Text(news[index].title),
