@@ -15,10 +15,11 @@ class _SelectCountryState extends State<SelectCountry> {
 String country;
 @override
 void initState() { 
-  super.initState();
   setState(() {
     country=widget.selectedCountry;
   });
+  super.initState();
+  
 }
 buildButton(String buttonText,String key){
   return  GestureDetector(
@@ -52,37 +53,40 @@ buildButton(String buttonText,String key){
 }
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-         backgroundColor: Color.fromRGBO(9, 8, 48, 1),
-         body:Column(
-           mainAxisAlignment: MainAxisAlignment.center,
-           children: <Widget>[
-
-           Row(mainAxisAlignment: MainAxisAlignment.center,
+    return  WillPopScope(
+      onWillPop: ()=>Future.value(false),
+      child: Scaffold(
+           backgroundColor: Color.fromRGBO(9, 8, 48, 1),
+           body:Column(
+             mainAxisAlignment: MainAxisAlignment.center,
              children: <Widget>[
-        buildButton('India','in'),
-         buildButton('USA','us'),
-          buildButton('Canada','ca'),
 
-           ],),
-           Row(mainAxisAlignment: MainAxisAlignment.center,
-             children: <Widget>[
-        buildButton('United Kingdom','gb'),
-         buildButton('UAE','ae'),
+             Row(mainAxisAlignment: MainAxisAlignment.center,
+               children: <Widget>[
+          buildButton('India','in'),
+           buildButton('USA','us'),
+            buildButton('Canada','ca'),
 
-           ],),
-            SizedBox(height: 80,),
-           FlatButton(
-             child: Text('Back',
-             style: TextStyle(
-               fontSize: 25,
-               color: Color.fromRGBO(213,126,81, 1),
-             ),), onPressed: () {
-                   Navigator.pop(context,country);
-             },
-           )
-        
-         ],) ,);
+             ],),
+             Row(mainAxisAlignment: MainAxisAlignment.center,
+               children: <Widget>[
+          buildButton('United Kingdom','gb'),
+           buildButton('UAE','ae'),
+
+             ],),
+              SizedBox(height: 80,),
+             FlatButton(
+               child: Text('Back',
+               style: TextStyle(
+                 fontSize: 25,
+                 color: Color.fromRGBO(213,126,81, 1),
+               ),), onPressed: () {
+                     Navigator.pop(context,country);
+               },
+             )
+          
+           ],) ,),
+    );
     
   }
 }

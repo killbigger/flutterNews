@@ -1,8 +1,9 @@
-import 'dart:async';
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:newsilise/mainPage.dart';
+import 'package:splashscreen/splashscreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,55 +31,25 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  @override
-  void initState() {
-   
-    super.initState();
-     Timer(
-     Duration(seconds: 3),(){
-       Navigator.push(context, MaterialPageRoute(builder: (context)=>MainPage(country: 'in',)));
 
-     }
-     );
-  }
   @override
   Widget build(BuildContext context) {
    
- return Scaffold(
-      body:Container(
-        height: MediaQuery.of(context).size.height,
-        width:MediaQuery.of(context).size.width ,
-        color: Color(0xFF081818),
-        child: Stack(
-          children: <Widget>[
-            Center(
-                 child:Container(
-                  height:150,
-                  width: 150,
-                  decoration:BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(image:AssetImage('assets/images/logo.png'),
-                    fit: BoxFit.cover
-                    )
-                  ), 
-                ), 
-            ),
-            
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(top:500.0),
-                child: Container(child:Text('powered by newsapi.org',
-                style: TextStyle(
-                  color: Color(0xFF7A9AC1),
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1,
-                ),),
-                ),
-              ),
-            )
-          ],),
+ return new SplashScreen(
+      seconds: 3,
+      navigateAfterSeconds: new MainPage(),
+      title: new Text('News',
+        style: new TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 20.0
+        ),
       ),
+      image: new Image.asset('assets/images/logo.png'),
+      backgroundColor: Colors.black,
+      styleTextUnderTheLoader: new TextStyle(),
+      photoSize: 100.0,
+      onClick: ()=>print("Flutter Egypt"),
+      loaderColor: Colors.red,
     );
 }
 

@@ -5,26 +5,23 @@ import 'package:newsilise/home.dart';
 import 'package:newsilise/inshort.dart';
 
 class MainPage extends StatefulWidget {
-  final String country;
-  final int currentPage;
-  MainPage({
-    this.country,
-    this.currentPage=0
-  });
-
+final int page;
+MainPage({
+  this.page=0
+});
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage>  {
+  int currentPage=0;
 PageController pageController;
-int currentPage;
   @override
   void initState() {
     
+    pageController = PageController(initialPage: widget.page);
     super.initState();
-    currentPage=widget.currentPage;
-    pageController = PageController(initialPage: currentPage);
+    
   }
   @override
   void dispose() {

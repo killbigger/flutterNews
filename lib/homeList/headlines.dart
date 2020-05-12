@@ -97,7 +97,11 @@ buildTopHeadlines(topHeadlines,String heading){
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 11
-                            ),),
+                            ),
+                            maxLines: 5,
+                            
+                            overflow: TextOverflow.ellipsis,
+                            ),
                           )
                       ],),
                     ),

@@ -37,11 +37,9 @@ TextEditingController searchController = TextEditingController();
                 color: Colors.white,
                 iconSize: 40,
                 onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(
-                     builder: (context)=>MainPage(country: 'in',
-                     currentPage: 1,
-                     )
-                     ));
+                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return MainPage(page:1);
+                      }));
                 },
               ),
             ),

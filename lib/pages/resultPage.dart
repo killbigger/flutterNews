@@ -51,75 +51,78 @@ class _ResultPageState extends State<ResultPage> {
       }
     }      
     }
-    return Scaffold(
-      
-      body: 
-      FutureBuilder(
-        future: futureCaller(),
-        builder: (BuildContext context, AsyncSnapshot<List<NewsAll>> snapshot) {
-          if(!snapshot.hasData){
-            return circularProgress();
-          }
-          List<NewsAll> news = snapshot.data;
-          return Container(
-          decoration:BoxDecoration(
-          gradient:LinearGradient(
-            begin:Alignment.topLeft,
-            end:Alignment(0.3,0.3),
-            colors: [
-              Colors.blue[200],
-              Colors.black
-            ]
-          ) ), 
-            child: CustomScrollView(
+    return WillPopScope(
+      onWillPop: ()=> Future.value(false),
+      child: Scaffold(
+        
+        body: 
+        FutureBuilder(
+          future: futureCaller(),
+          builder: (BuildContext context, AsyncSnapshot<List<NewsAll>> snapshot) {
+            if(!snapshot.hasData){
+              return circularProgress();
+            }
+            List<NewsAll> news = snapshot.data;
+            return Container(
+            decoration:BoxDecoration(
+            gradient:LinearGradient(
+              begin:Alignment.topLeft,
+              end:Alignment(0.3,0.3),
+              colors: [
+                Colors.blue[200],
+                Colors.black
+              ]
+            ) ), 
+              child: CustomScrollView(
 
-        slivers: <Widget>[
-            
-            SliverPersistentHeader(
-        pinned: true,
-        floating: false,
-        delegate:ResultPageHeader(
-             minExtent:82,
-             maxExtent:360,
-            sortBy:widget.sortBy,
-            category:widget.category,
-            q:widget.q,
-            isEverything:widget.isEverything,
-            source:widget.source
-         
-        ) ,
-        ),
-        SliverList(
-            delegate:SliverChildBuilderDelegate((context,index){
-              return 
-                ListTile(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context){
-                    return 
-                   ContentPage(index: index,
-                    news:news,
-                    );
-                    
-                  }));
-                    
-                  },
-                leading: CircleAvatar(backgroundImage:news[index].urlToImage==null?
-                           AssetImage('assets/images/nullimage.jpg'):NetworkImage(news[index].urlToImage),
+          slivers: <Widget>[
+              
+              SliverPersistentHeader(
+          pinned: true,
+          floating: false,
+          delegate:ResultPageHeader(
+               minExtent:82,
+               maxExtent:360,
+              sortBy:widget.sortBy,
+              category:widget.category,
+              q:widget.q,
+              isEverything:widget.isEverything,
+              source:widget.source
+           
+          ) ,
+          ),
+          SliverList(
+              delegate:SliverChildBuilderDelegate((context,index){
+                return 
+                  ListTile(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                      return 
+                     ContentPage(index: index,
+                      news:news,
+                      );
+                      
+                    }));
+                      
+                    },
+                  leading: CircleAvatar(backgroundImage:news[index].urlToImage==null?
+                             AssetImage('assets/images/nullimage.jpg'):NetworkImage(news[index].urlToImage),
+                              
                             
-                          
-                radius: 23,
-                ),
-                title: Text(news[index].title),
-                );
-            },
-            childCount: news.length)
-            )
-        ],
+                  radius: 23,
+                  ),
+                  title: Text(news[index].title),
+                  );
+              },
+              childCount: news.length)
+              )
+          ],
+        ),
+            );
+          },
+        ),
+        
       ),
-          );
-        },
-      ),
-      
     );
   }
 }

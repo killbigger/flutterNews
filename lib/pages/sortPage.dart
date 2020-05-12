@@ -23,10 +23,11 @@ class _SortPageState extends State<SortPage> {
 String sortBy;
 @override
 void initState() { 
-  super.initState();
   setState(() {
     this.sortBy=widget.sortBy;
   });
+  super.initState();
+  
 }
 buildButton(String buttonText,String key){
   return  GestureDetector(
@@ -61,44 +62,47 @@ buildButton(String buttonText,String key){
 }
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-         backgroundColor: Color.fromRGBO(9, 8, 48, 1),
-         body:Column(
-           mainAxisAlignment: MainAxisAlignment.center,
-           children: <Widget>[
+    return  WillPopScope(
+       onWillPop: ()=> Future.value(false),
+      child: Scaffold(
+           backgroundColor: Color.fromRGBO(9, 8, 48, 1),
+           body:Column(
+             mainAxisAlignment: MainAxisAlignment.center,
+             children: <Widget>[
 
-           Row(mainAxisAlignment: MainAxisAlignment.center,
-             children: <Widget>[
-        buildButton('relevancy','relevancy'),
-         buildButton('popularity','popularity'),         
-           ],),
-           Row(mainAxisAlignment: MainAxisAlignment.center,
-             children: <Widget>[
-          buildButton('publishedAt','publishedAt'),
-           ],),
-            SizedBox(height: 80,),
-           FlatButton(
-             child: Text('Back',
-             style: TextStyle(
-               fontSize: 25,
-               color: Color.fromRGBO(213,126,81, 1),
-             ),), onPressed: () {
-               
-                    Navigator.push(context, MaterialPageRoute(builder: (context){
-                    return 
-                    ResultPage(
-                      source:widget.source,
-                    isEverything: widget.isEverything,
-                    sortBy:sortBy,
-                    category:widget.category,
-                    q:widget.q,
-                                
-                    );
-                  }));
-             },
-           )
-        
-         ],) ,);
+             Row(mainAxisAlignment: MainAxisAlignment.center,
+               children: <Widget>[
+          buildButton('relevancy','relevancy'),
+           buildButton('popularity','popularity'),         
+             ],),
+             Row(mainAxisAlignment: MainAxisAlignment.center,
+               children: <Widget>[
+            buildButton('publishedAt','publishedAt'),
+             ],),
+              SizedBox(height: 80,),
+             FlatButton(
+               child: Text('Back',
+               style: TextStyle(
+                 fontSize: 25,
+                 color: Color.fromRGBO(213,126,81, 1),
+               ),), onPressed: () {
+                 
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                      return 
+                      ResultPage(
+                        source:widget.source,
+                      isEverything: widget.isEverything,
+                      sortBy:sortBy,
+                      category:widget.category,
+                      q:widget.q,
+                                  
+                      );
+                    }));
+               },
+             )
+          
+           ],) ,),
+    );
     
   }
 }
