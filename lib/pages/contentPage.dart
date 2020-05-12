@@ -51,7 +51,7 @@ class _ContentPageState extends State<ContentPage> {
       favNews=list;
     });
     
-    print(favNews);
+    
   }
   
 }
@@ -75,7 +75,7 @@ if(added){
   
 }
 String jsonFavNews = jsonEncode(favNews);
-print(jsonFavNews);
+
 await prefs.setString('favnews', jsonFavNews);
 }
   newsFromOtherPage(){
@@ -124,6 +124,35 @@ await prefs.setString('favnews', jsonFavNews);
                             fit: BoxFit.cover,
                           ),
                 ),
+            //     RichText(
+              
+            //   text: TextSpan(
+                
+            //     style: TextStyle(fontSize: 14,color: Colors.black),
+            //   children:[
+            //     TextSpan(text:news[index].title,
+            //     style: TextStyle(fontWeight: FontWeight.bold,fontSize:19)
+            //        ),
+            //        TextSpan(text:news[index].description!=null?news[index].description:'',
+            //        style: TextStyle(
+            //           color: Colors.black,
+            //           fontSize: 16,
+            //           fontWeight: FontWeight.bold
+            //           ),
+            //        ),
+            //        TextSpan(
+            //          text:news[index].content!=null?news[index].content:'',
+            //           style:TextStyle(
+            //           color:Colors.black,
+            //           fontSize: 15,
+            //           // fontWeight: FontWeight.bold
+            //           ),
+            //        )
+            //   ]
+
+            //   ),
+            // ),
+                 
                 Padding(
                   padding: const EdgeInsets.only(left:8.0,right: 8,top: 6),
                   child: Text(news[index].title,
@@ -145,43 +174,44 @@ await prefs.setString('favnews', jsonFavNews);
                     ),
                   ),
                 ),
-                 Padding(
-                  padding: const EdgeInsets.only(left:8.0,right: 8,top: 6),
-                  child: Text(news[index].content!=null?news[index].content
-                  :''
-                  ,
-                  style:TextStyle(
-                    color:Colors.black,
-                    fontSize: 15,
-                    // fontWeight: FontWeight.bold
+                 Expanded(
+                   child: Padding(
+                    padding: const EdgeInsets.only(left:8.0,right: 8,top: 6),
+                    child: Text(news[index].content!=null?news[index].content
+                    :''
+                    ,
+                    style:TextStyle(
+                      color:Colors.black,
+                      fontSize: 15,
+                      // fontWeight: FontWeight.bold
+                      ),
                     ),
-                  ),
                 ),
-               GestureDetector(
-                 onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context){
-                        return WebPage(url:news[index].url);
-                      }));
-                 },
-                 child: Center(
-                       child: Row(
-                         mainAxisSize: MainAxisSize.min,
-                         children: <Widget>[
-                            Text('visit',
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 20
-                    ),
-                    ),
-                     Icon(
-                          Icons.web,
-                          color: Colors.red,
-                          size: 30,
-                            ),
-                         ],
-                       ),
-                     ),
-               ),
+                 ),
+                Container(
+            width: 100.0,
+            height: 50.0,
+            alignment: Alignment.center,
+            child: RaisedButton.icon(
+              label: Text(
+                "visit",
+                style: TextStyle(color: Colors.white),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              color: Colors.red,
+              onPressed:(){
+                 Navigator.push(context, MaterialPageRoute(builder: (context){
+                          return WebPage(url:news[index].url);
+                        }));
+              },
+              icon: Icon(
+                Icons.web,
+                color: Colors.white,
+              ),
+            ),
+            )
                
             ],),
           ),

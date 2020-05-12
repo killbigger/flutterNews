@@ -16,7 +16,13 @@ class WebPage extends StatefulWidget {
 }
 
 class _WebPageState extends State<WebPage> {
+  bool loading;
   final Completer<WebViewController> _controller =Completer<WebViewController>();
+  @override
+  void initState() {
+    loading=true;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,14 +30,29 @@ class _WebPageState extends State<WebPage> {
         automaticallyImplyLeading: true,
         backgroundColor: Colors.black,
       ),
-      body: WebView(
-       initialUrl: widget.url,
-       
-       javascriptMode: JavascriptMode.unrestricted,
-       onWebViewCreated: (WebViewController webViewController){
-         _controller.complete(webViewController);
-       },
-      ),
+      body: Stack(children: <Widget>[
+              WebView(
+                    initialUrl: widget.url,
+                    onPageFinished: (e){
+                       setState(() {
+                        loading=false;
+                      });
+                    },
+                    javascriptMode: JavascriptMode.unrestricted,
+                    onWebViewCreated: (WebViewController webViewController){
+                      _controller.complete(webViewController);
+                    },
+                    ),
+                    
+                 loading?Container(
+                  alignment: FractionalOffset.center,
+                  child: CircularProgressIndicator(),
+                )
+              : Container(
+                  color: Colors.transparent,
+                ),
+      ],),
+      
       floatingActionButton:FutureBuilder<WebViewController>(
         future:_controller.future ,
         builder: (BuildContext context,AsyncSnapshot<WebViewController> controller){
@@ -70,8 +91,6 @@ class _WebPageState extends State<WebPage> {
                 )
             ],
             );
-          } else {
-return circularProgress();
           } 
         },
         )

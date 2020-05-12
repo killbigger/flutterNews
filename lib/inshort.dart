@@ -58,7 +58,7 @@ if(added){
   
 }
 String jsonFavNews = jsonEncode(favNews);
-print(jsonFavNews);
+
 await prefs.setString('favnews', jsonFavNews);
 }
   @override
@@ -146,34 +146,36 @@ await prefs.setString('favnews', jsonFavNews);
                         fontSize: 15,
                         // fontWeight: FontWeight.bold
                         ),
+
+                        
+                        overflow: TextOverflow.ellipsis,
                       ),
                 ),
-                   GestureDetector(
-                     onTap: (){
-                       Navigator.push(context, MaterialPageRoute(builder: (context){
+            Container(
+            width: 100.0,
+            height: 50.0,
+            alignment: Alignment.center,
+            child: RaisedButton.icon(
+              label: Text(
+                "visit",
+                style: TextStyle(color: Colors.white),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              color: Colors.red,
+              onPressed:(){
+                 Navigator.push(context, MaterialPageRoute(builder: (context){
                           return WebPage(url:news[index].url);
                         }));
-                     },
-                     child: Center(
-                       child: Row(
-                         mainAxisSize: MainAxisSize.min,
-                         children: <Widget>[
-                            Text('visit',
-                  style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 20
-                  ),
-                  ),
-                         Icon(
-                        Icons.web,
-                        color: Colors.red,
-                        size: 30,
-                          ),
-                 
-                         ],
-                       ),
-                     ),
-                   )
+              },
+              icon: Icon(
+                Icons.web,
+                color: Colors.white,
+              ),
+            ),
+            )
+                  
                 
                 
             ],),

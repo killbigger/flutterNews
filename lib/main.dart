@@ -48,7 +48,6 @@ class _SplashPageState extends State<SplashPage> {
       backgroundColor: Colors.black,
       styleTextUnderTheLoader: new TextStyle(),
       photoSize: 100.0,
-      onClick: ()=>print("Flutter Egypt"),
       loaderColor: Colors.red,
     );
 }

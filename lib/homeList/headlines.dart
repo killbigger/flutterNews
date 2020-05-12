@@ -18,9 +18,7 @@ buildTopHeadlines(topHeadlines,String heading){
       FutureBuilder(
         future:topHeadlines.getNews(), 
         builder: (BuildContext context, AsyncSnapshot<List<NewsAll>> snapshot) {
-          if(snapshot.hasError){
-            print(snapshot.error);
-          } else if(!snapshot.hasData){
+         if(!snapshot.hasData){
             return Container(
               height:250,
               child: ListView.builder(
@@ -36,7 +34,6 @@ buildTopHeadlines(topHeadlines,String heading){
               
           }
           if(snapshot.hasError){
-            print('error in Future builder is ${snapshot.error}');
             return Container(
               height: 250,
               width: double.infinity,

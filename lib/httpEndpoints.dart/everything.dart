@@ -39,7 +39,7 @@ class Search {
  final response = await http.get(newsApi);
  if(response.statusCode==200){
    Map<String,dynamic> body = json.decode(response.body);
-  //  print(body['articles']);
+  
    List<NewsAll> news=[];
    body['articles'].forEach((article){
 NewsAll newsAll = NewsAll.fromJson(article);

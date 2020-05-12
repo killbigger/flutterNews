@@ -1,7 +1,9 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:newsilise/httpEndpoints.dart/everything.dart';
 import 'package:newsilise/httpEndpoints.dart/topHeadlines.dart';
+import 'package:newsilise/mainPage.dart';
 import 'package:newsilise/models/news_headlinesandeverything.dart';
 import 'package:newsilise/pages/contentPage.dart';
 import 'package:newsilise/widgets/progress.dart';
@@ -52,7 +54,12 @@ class _ResultPageState extends State<ResultPage> {
     }      
     }
     return WillPopScope(
-      onWillPop: ()=> Future.value(false),
+      onWillPop: ()async{
+         Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return MainPage(page:1);
+                      }));
+           return false;           
+      },
       child: Scaffold(
         
         body: 
@@ -94,24 +101,40 @@ class _ResultPageState extends State<ResultPage> {
           SliverList(
               delegate:SliverChildBuilderDelegate((context,index){
                 return 
-                  ListTile(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context){
-                      return 
-                     ContentPage(index: index,
-                      news:news,
-                      );
-                      
-                    }));
-                      
-                    },
-                  leading: CircleAvatar(backgroundImage:news[index].urlToImage==null?
-                             AssetImage('assets/images/nullimage.jpg'):NetworkImage(news[index].urlToImage),
-                              
-                            
-                  radius: 23,
-                  ),
-                  title: Text(news[index].title),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom:4),
+                    child: ListTile(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return 
+                       ContentPage(index: index,
+                        news:news,
+                        );
+                        
+                      }));
+                        
+                      },
+                      //  AssetImage('assets/images/nullimage.jpg')
+                      // backgroundImage:news[index].urlToImage==null?
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(60),
+                      child: Container(
+                        height: 60,
+                        width: 60,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle
+                        ),
+                        child:news[index].urlToImage==null?AssetImage('assets/images/nullimage.jpg'):
+                        CachedNetworkImage(
+                                  imageUrl: news[index].urlToImage,
+                                  placeholder: (context, url) => circularProgress(),
+                                  errorWidget: (context, url, error) => Icon(Icons.error),
+                                  fit: BoxFit.fill,
+                              ),
+                      ),
+                    ),
+                    title: Text(news[index].title),
+                    ),
                   );
               },
               childCount: news.length)

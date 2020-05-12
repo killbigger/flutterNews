@@ -1,5 +1,5 @@
 class NewsAll {
-  // Map  source = {};
+
   String author;
   String title;
   String description;
@@ -10,7 +10,7 @@ class NewsAll {
   String api;
   
   NewsAll({
-// this.source,
+
   this.author,
   this.title,
   this.description,
@@ -22,7 +22,7 @@ class NewsAll {
 
   factory NewsAll.fromJson(Map<String,dynamic> json) {
     return NewsAll(
-  // source:json['source'],
+  
   author:json['author'],
   title:json['title'],
   description:json['description'],
