@@ -84,10 +84,11 @@ buildButton(String buttonText,String key){
                style: TextStyle(
                  fontSize: 25,
                  color: Color.fromRGBO(213,126,81, 1),
-               ),), onPressed: () {
-                 
-                      Navigator.push(context, MaterialPageRoute(builder: (context){
-                      return 
+               ),), 
+               onPressed:() {
+                  
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                      return
                       ResultPage(
                         source:widget.source,
                       isEverything: widget.isEverything,

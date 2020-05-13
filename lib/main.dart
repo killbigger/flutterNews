@@ -1,6 +1,6 @@
 
 import 'dart:ui';
-
+// import 'router.dart' as router;
 import 'package:flutter/material.dart';
 import 'package:newsilise/mainPage.dart';
 import 'package:splashscreen/splashscreen.dart';
@@ -13,11 +13,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      // onGenerateRoute:router.generateRoute,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
        textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.white),
         scaffoldBackgroundColor: Colors.black,
-   
+    
       ),
       home: SplashPage(),
     );

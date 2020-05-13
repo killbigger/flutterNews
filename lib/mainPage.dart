@@ -5,10 +5,7 @@ import 'package:newsilise/home.dart';
 import 'package:newsilise/inshort.dart';
 
 class MainPage extends StatefulWidget {
-final int page;
-MainPage({
-  this.page=0
-});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -18,8 +15,7 @@ class _MainPageState extends State<MainPage>  {
 PageController pageController;
   @override
   void initState() {
-    currentPage=widget.page;
-    pageController = PageController(initialPage: widget.page);
+    pageController = PageController(initialPage:currentPage);
     super.initState();
     
   }

@@ -3,7 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:newsilise/httpEndpoints.dart/everything.dart';
 import 'package:newsilise/httpEndpoints.dart/topHeadlines.dart';
-import 'package:newsilise/mainPage.dart';
 import 'package:newsilise/models/news_headlinesandeverything.dart';
 import 'package:newsilise/pages/contentPage.dart';
 import 'package:newsilise/widgets/progress.dart';
@@ -53,14 +52,8 @@ class _ResultPageState extends State<ResultPage> {
       }
     }      
     }
-    return WillPopScope(
-      onWillPop: ()async{
-         Navigator.push(context, MaterialPageRoute(builder: (context){
-                        return MainPage(page:1);
-                      }));
-           return false;           
-      },
-      child: Scaffold(
+    return 
+      Scaffold(
         
         body: 
         FutureBuilder(
@@ -102,7 +95,7 @@ class _ResultPageState extends State<ResultPage> {
               delegate:SliverChildBuilderDelegate((context,index){
                 return 
                   Padding(
-                    padding: const EdgeInsets.only(bottom:4),
+                    padding: const EdgeInsets.only(bottom:0),
                     child: ListTile(
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context){
@@ -114,17 +107,17 @@ class _ResultPageState extends State<ResultPage> {
                       }));
                         
                       },
-                      //  AssetImage('assets/images/nullimage.jpg')
-                      // backgroundImage:news[index].urlToImage==null?
                     leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(60),
+                      borderRadius: BorderRadius.circular(50),
                       child: Container(
-                        height: 60,
-                        width: 60,
+                        height: 50,
+                        width: 50,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle
                         ),
-                        child:news[index].urlToImage==null?AssetImage('assets/images/nullimage.jpg'):
+                        child:news[index].urlToImage==null?
+                        Image(image:AssetImage('assets/images/nullimage.jpg') ,)
+                        :
                         CachedNetworkImage(
                                   imageUrl: news[index].urlToImage,
                                   placeholder: (context, url) => circularProgress(),
@@ -133,7 +126,11 @@ class _ResultPageState extends State<ResultPage> {
                               ),
                       ),
                     ),
-                    title: Text(news[index].title),
+                    title: Text(news[index].title!=null?news[index].title:'',
+                    style: TextStyle(
+                      fontSize: 14
+                    ),
+                    ),
                     ),
                   );
               },
@@ -145,7 +142,7 @@ class _ResultPageState extends State<ResultPage> {
           },
         ),
         
-      ),
+      
     );
   }
 }

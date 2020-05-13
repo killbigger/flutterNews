@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:newsilise/mainPage.dart';
 import 'package:newsilise/pages/sortPage.dart';
 
  
@@ -37,9 +36,7 @@ TextEditingController searchController = TextEditingController();
                 color: Colors.white,
                 iconSize: 40,
                 onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context){
-                        return MainPage(page:1);
-                      }));
+                    Navigator.pop(context);
                 },
               ),
             ),
@@ -61,7 +58,8 @@ TextEditingController searchController = TextEditingController();
                           GestureDetector(
                             onTap: (){
                              if(isEverything){
-                               Navigator.push(context, MaterialPageRoute(
+                              
+                               Navigator.pushReplacement(context, MaterialPageRoute(
                               builder: (context)=>SortPage(
                                 sortBy:sortBy,
                                 category:category,
@@ -70,6 +68,7 @@ TextEditingController searchController = TextEditingController();
                                 source:source
                               )
                               ));
+                              
                              }
                                 
                             },

@@ -31,6 +31,7 @@ class _WebPageState extends State<WebPage> {
         backgroundColor: Colors.black,
       ),
       body: Stack(children: <Widget>[
+         
               WebView(
                     initialUrl: widget.url,
                     onPageFinished: (e){
@@ -43,14 +44,11 @@ class _WebPageState extends State<WebPage> {
                       _controller.complete(webViewController);
                     },
                     ),
+                    loading?
+                  circularProgress()
+                 : Container(),
                     
-                 loading?Container(
-                  alignment: FractionalOffset.center,
-                  child: CircularProgressIndicator(),
-                )
-              : Container(
-                  color: Colors.transparent,
-                ),
+               
       ],),
       
       floatingActionButton:FutureBuilder<WebViewController>(
